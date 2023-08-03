@@ -343,6 +343,11 @@ class BankStatementReport:
     def result(self):
         pass
 
+
+    def export_to_excel(self, dataframe ,name, start_date, end_date):
+        file_name = name + '-' + start_date + '-' + end_date + '.xlsx'
+        print(file_name);
+
     def get_average_monthly_balance(self, dataframe):
         dataframe['Transaction date'] = pd.to_datetime(dataframe['Transaction Date'])
         dataframe['Balance'] = pd.to_numeric(dataframe['Balance'])

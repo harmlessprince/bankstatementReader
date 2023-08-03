@@ -202,7 +202,12 @@ class FidelityBankStatement(BankStatementReport):
         salary_df = self.predict_salary_income(formatted_df, table_headers, 50000, 500000)
 
         average_monthly_balance = self.get_average_monthly_balance(formatted_df)
-
+        self.export_to_excel(
+            dataframe=formatted_df,
+            name=account_name_extracted,
+            start_date=statement_period_extracted.get('from_date'),
+            end_date=statement_period_extracted.get('end_date')
+        )
         return {
             'period': statement_period_extracted,
             "account_name": account_name_extracted,
