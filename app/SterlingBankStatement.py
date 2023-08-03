@@ -1,11 +1,11 @@
-import pandas as pd
-from BaseBankStatementReport import BankStatementReport
-from abc import ABC, abstractmethod
 import re
-from datetime import datetime
+
+import pandas as pd
+
+from BaseBankStatementReport import BankStatementReport
 
 
-class FcmbBankStatement(BankStatementReport):
+class SterlingBankStatement(BankStatementReport):
 
     def __init__(self, pdf_directory):
         super().__init__(pdf_directory)
@@ -177,7 +177,6 @@ class FcmbBankStatement(BankStatementReport):
     def predict_salary_income(self, dataframe, table_headers, lower_bound, upper_bound):
         # Filter the DataFrame to get rows with values within the specified range
         filtered_df = dataframe[(dataframe['Deposits'] >= lower_bound) & (dataframe['Deposits'] <= upper_bound)]
-
         potential_salary = []
         for index, row in filtered_df.iterrows():
             unique = self.is_unique_amount_in_month_year(row, filtered_df)
@@ -195,9 +194,9 @@ class FcmbBankStatement(BankStatementReport):
         return salary_df
 
 
-access_bank_statement_pdf_path = "/Users/harmlessprince/python/pdfconverter/pdfs/fcmb.pdf"
+access_bank_statement_pdf_path = "../pdfs/sterling.pdf"
 
-bank_statement = FcmbBankStatement(access_bank_statement_pdf_path)
+bank_statement = SterlingBankStatement(access_bank_statement_pdf_path)
 
 result = bank_statement.result()
 print(result)

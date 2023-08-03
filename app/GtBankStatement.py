@@ -182,7 +182,7 @@ class GtBankStatement(BankStatementReport):
         }
 
 
-pdf_path = "/Users/harmlessprince/python/pdfconverter/pdfs/gt.pdf"
+pdf_path = "../pdfs/gt.pdf"
 
 bank_statement = GtBankStatement(pdf_path)
 result = bank_statement.result()

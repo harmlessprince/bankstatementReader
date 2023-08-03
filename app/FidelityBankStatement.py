@@ -1,8 +1,8 @@
-import pandas as pd
-from BaseBankStatementReport import BankStatementReport
-from abc import ABC, abstractmethod
 import re
-from datetime import datetime
+
+import pandas as pd
+
+from BaseBankStatementReport import BankStatementReport
 
 
 class FidelityBankStatement(BankStatementReport):
@@ -240,7 +240,7 @@ class FidelityBankStatement(BankStatementReport):
         return salary_df
 
 
-access_bank_statement_pdf_path = "/Users/harmlessprince/python/pdfconverter/pdfs/fidelity.pdf"
+access_bank_statement_pdf_path = "../pdfs/fidelity.pdf"
 
 bank_statement = FidelityBankStatement(access_bank_statement_pdf_path)
 

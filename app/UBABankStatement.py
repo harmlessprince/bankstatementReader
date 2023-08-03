@@ -286,8 +286,7 @@ class UBABankStatement(BankStatementReport):
         }
 
 
-
-pdf_path = "/Users/harmlessprince/python/pdfconverter/pdfs/uba3.pdf"
+pdf_path = "../pdfs/uba3.pdf"
 
 bank_statement = UBABankStatement(pdf_path)
 

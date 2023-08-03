@@ -1,8 +1,8 @@
-import pandas as pd
-from BaseBankStatementReport import BankStatementReport
-from abc import ABC, abstractmethod
 import re
-from datetime import datetime
+
+import pandas as pd
+
+from BaseBankStatementReport import BankStatementReport
 
 
 class AccessBankStatement(BankStatementReport):
@@ -160,7 +160,7 @@ class AccessBankStatement(BankStatementReport):
         return salary_df
 
 
-access_bank_statement_pdf_path = "/Users/harmlessprince/python/pdfconverter/pdfs/access.pdf"
+access_bank_statement_pdf_path = "../pdfs/access.pdf"
 
 bank_statement = AccessBankStatement(access_bank_statement_pdf_path)
 

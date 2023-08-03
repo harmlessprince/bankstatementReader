@@ -5,6 +5,12 @@ import re
 
 class FirstBankStatement(BankStatementReport):
 
+    def predict_salary_income(self, dataframe, table_headers, lower_bound, upper_bound):
+        pass
+
+    def result(self):
+        pass
+
     def __init__(self, pdf_directory, password):
         super().__init__(pdf_directory, password)
 
@@ -120,7 +126,7 @@ class FirstBankStatement(BankStatementReport):
         return balance_bf + modified_rows
 
 
-first_bank_statement_pdf_path = "/Users/harmlessprince/python/pdfconverter/pdfs/firstbank.pdf"
+first_bank_statement_pdf_path = "../pdfs/firstbank.pdf"
 
 bank_statement = FirstBankStatement(pdf_directory=first_bank_statement_pdf_path, password='81054')
 

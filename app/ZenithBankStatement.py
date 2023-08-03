@@ -300,7 +300,7 @@ class ZenithBankStatement(BankStatementReport):
         }
 
 
-pdf_path = "/Users/harmlessprince/python/pdfconverter/pdfs/zenith.pdf"
+pdf_path = "../pdfs/zenith.pdf"
 
 bank_statement = ZenithBankStatement(pdf_path)
 
