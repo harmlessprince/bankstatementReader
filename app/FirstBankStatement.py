@@ -5,6 +5,11 @@ import re
 
 class FirstBankStatement(BankStatementReport):
 
+    def __init__(self, pdf_directory):
+        if pdf_directory is None or pdf_directory == '':
+            pdf_directory = "../pdfs/first.pdf"
+        super().__init__(pdf_directory)
+
     def predict_salary_income(self, dataframe, table_headers, lower_bound, upper_bound):
         pass
 
@@ -126,6 +131,8 @@ class FirstBankStatement(BankStatementReport):
         return balance_bf + modified_rows
 
 
+if __name__ == "__main__":
+    print("Called")
 first_bank_statement_pdf_path = "../pdfs/firstbank.pdf"
 
 bank_statement = FirstBankStatement(pdf_directory=first_bank_statement_pdf_path, password='81054')

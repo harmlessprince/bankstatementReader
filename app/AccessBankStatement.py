@@ -8,6 +8,8 @@ from BaseBankStatementReport import BankStatementReport
 class AccessBankStatement(BankStatementReport):
 
     def __init__(self, pdf_directory):
+        if pdf_directory is None or pdf_directory == '':
+            pdf_directory = "../pdfs/access.pdf"
         super().__init__(pdf_directory)
 
     def get_transactions_table_header_mapping(self):
@@ -160,10 +162,10 @@ class AccessBankStatement(BankStatementReport):
         return salary_df
 
 
-access_bank_statement_pdf_path = "../pdfs/access.pdf"
-
-bank_statement = AccessBankStatement(access_bank_statement_pdf_path)
-
-result = bank_statement.result()
-print(result)
-exit()
+# access_bank_statement_pdf_path = "../pdfs/access.pdf"
+#
+# bank_statement = AccessBankStatement(access_bank_statement_pdf_path)
+#
+# result = bank_statement.result()
+# print(result)
+# exit()

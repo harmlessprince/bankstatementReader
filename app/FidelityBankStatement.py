@@ -8,6 +8,8 @@ from BaseBankStatementReport import BankStatementReport
 class FidelityBankStatement(BankStatementReport):
 
     def __init__(self, pdf_directory):
+        if pdf_directory is None or pdf_directory == '':
+            pdf_directory = "../pdfs/fidelity.pdf"
         super().__init__(pdf_directory)
 
     def get_account_number(self, text):
@@ -200,7 +202,7 @@ class FidelityBankStatement(BankStatementReport):
         total_deposit_extracted = self.get_total_deposit(formatted_df_copy)
         print("--- Predicted Salary List ----")
         salary_df = self.predict_salary_income(formatted_df_copy, table_headers, 50000, 500000)
-
+        print(salary_df)
         average_monthly_balance = self.get_average_monthly_balance(formatted_df_copy)
         self.export_to_excel(
             dataframe=formatted_df,
@@ -239,11 +241,12 @@ class FidelityBankStatement(BankStatementReport):
         salary_df = pd.DataFrame(potential_salary, columns=table_headers)
         return salary_df
 
-
-access_bank_statement_pdf_path = "../pdfs/fidelity.pdf"
-
-bank_statement = FidelityBankStatement(access_bank_statement_pdf_path)
-
-result = bank_statement.result()
-print(result)
-exit()
+# if __name__ == "__main__":
+#     print("Called")
+# access_bank_statement_pdf_path = "../pdfs/fidelity.pdf"
+#
+# bank_statement = FidelityBankStatement(access_bank_statement_pdf_path)
+#
+# result = bank_statement.result()
+# print(result)
+# exit()

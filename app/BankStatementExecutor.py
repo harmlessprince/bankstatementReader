@@ -1,8 +1,18 @@
 import subprocess
+import importlib
+from FidelityBankStatement import FidelityBankStatement
+from ZenithBankStatement import ZenithBankStatement
+from UBABankStatement import UBABankStatement
+from AccessBankStatement import AccessBankStatement
+# from FirstBankStatement import FirstBankStatement
+from GtBankStatement import GtBankStatement
+from FcmbBankStatement import FcmbBankStatement
+from SterlingBankStatement import SterlingBankStatement
 
 
 class BankStatementExecutor:
     def __init__(self):
+        # self.pdf_directory = pdf_directory
         self.bank_statements = {
             1: "Zenith",
             2: "UBA",
@@ -17,6 +27,7 @@ class BankStatementExecutor:
 
     def close(self):
         exit(0)
+
     def display_menu(self):
         print("Available Bank Statements:")
         for number, statement in self.bank_statements.items():
@@ -34,25 +45,35 @@ class BankStatementExecutor:
                 self.display_menu()
                 print("Invalid input. Please enter a number.")
 
-    def execute_bank_statement(self, choice):
-        file_to_execute = self.bank_statements.get(choice)
-        print(file_to_execute + " Bank Statement Selected")
-        file_to_execute = file_to_execute + "BankStatement.py"
-        if file_to_execute:
-            try:
-                subprocess.run(["python", file_to_execute], check=True)
-            except subprocess.SubprocessError:
-                print(f"Error executing {file_to_execute}.")
-            except FileNotFoundError:
-                print(f"Error: {file_to_execute} not found.")
-            except Exception as e:
-                print(f"Error executing {file_to_execute}: {e}")
-        else:
-            print("Invalid option. Unable to execute the selected bank statement.")
+    def execute(self, choice, pdf_file=''):
+        try:
+            file_to_execute = self.bank_statements.get(choice)
+            print(file_to_execute + " Bank Statement Selected")
+            module_name = file_to_execute + "BankStatement.py"
+            class_name = self.bank_statements[choice] + "BankStatement"
+            bank_statement = None
+            if choice == 1:
+                bank_statement = ZenithBankStatement(pdf_file)
+            elif choice == 2:
+                bank_statement = UBABankStatement(pdf_file)
+            elif choice == 3:
+                bank_statement = AccessBankStatement(pdf_file)
+            elif choice == 5:
+                bank_statement = GtBankStatement(pdf_file)
+            elif choice == 6:
+                bank_statement = FcmbBankStatement(pdf_file)
+            elif choice == 7:
+                bank_statement = FidelityBankStatement(pdf_file)
+            elif choice == 8:
+                bank_statement = SterlingBankStatement(pdf_file)
+            return bank_statement.result()
+        except Exception as e:
+            raise Exception("Invalid option. Unable to execute the selected bank statement.")
 
 
 if __name__ == "__main__":
     executor = BankStatementExecutor()
     executor.display_menu()
     choice = executor.get_user_choice()
-    executor.execute_bank_statement(choice)
+    response = executor.execute(choice)
+    print(response)

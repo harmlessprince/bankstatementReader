@@ -8,6 +8,8 @@ from BaseBankStatementReport import BankStatementReport
 class FcmbBankStatement(BankStatementReport):
 
     def __init__(self, pdf_directory):
+        if pdf_directory is None or pdf_directory == '':
+            pdf_directory = "../pdfs/fcmb.pdf"
         super().__init__(pdf_directory)
 
     def format_account_summary_table(self, reader, table_index=0, page=0):
@@ -194,11 +196,12 @@ class FcmbBankStatement(BankStatementReport):
         salary_df = pd.DataFrame(potential_salary, columns=table_headers)
         return salary_df
 
-
-access_bank_statement_pdf_path = "../pdfs/fcmb.pdf"
-
-bank_statement = FcmbBankStatement(access_bank_statement_pdf_path)
-
-result = bank_statement.result()
-print(result)
-exit()
+# if __name__ == "__main__":
+#     print("Called")
+#     access_bank_statement_pdf_path = "../pdfs/fcmb.pdf"
+#
+#     bank_statement = FcmbBankStatement(access_bank_statement_pdf_path)
+#
+#     result = bank_statement.result()
+#     print(result)
+#     exit()

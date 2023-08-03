@@ -6,6 +6,8 @@ import re
 class GtBankStatement(BankStatementReport):
 
     def __init__(self, pdf_directory):
+        if pdf_directory is None or pdf_directory == '':
+            pdf_directory = "../pdfs/gt.pdf"
         super().__init__(pdf_directory)
 
     def get_account_number(self, _formatted_summary_table):
@@ -181,10 +183,11 @@ class GtBankStatement(BankStatementReport):
             "average_monthly_balance": average_monthly_balance
         }
 
-
-pdf_path = "../pdfs/gt.pdf"
-
-bank_statement = GtBankStatement(pdf_path)
-result = bank_statement.result()
-print(result)
-exit()
+# if __name__ == "__main__":
+#     print("Called")
+#     pdf_path = "../pdfs/gt.pdf"
+#
+#     bank_statement = GtBankStatement(pdf_path)
+#     result = bank_statement.result()
+#     print(result)
+#     exit()

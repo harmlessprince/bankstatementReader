@@ -5,6 +5,11 @@ import re
 
 
 class UBABankStatement(BankStatementReport):
+    def __init__(self, pdf_directory):
+        if pdf_directory is None or pdf_directory == '':
+            pdf_directory = "../pdfs/uba.pdf"
+        super().__init__(pdf_directory)
+
     def predict_salary_income(self, dataframe, table_headers, lower_bound, upper_bound):
         # Filter the DataFrame to get rows with values within the specified range
         filtered_df = dataframe[(dataframe['Deposits'] >= lower_bound) & (dataframe['Deposits'] <= upper_bound)]
@@ -34,9 +39,6 @@ class UBABankStatement(BankStatementReport):
                      r'|December)\s+\d{1,2}(?:st|nd|rd|th)\s+(' \
                      r'?:January|February|March|April|May|June|July|August|September|October|November' \
                      r'|December)\s+\d{1,2}(?:st|nd|rd|th)\s+\d{4}\s+\d{4}\b'
-
-    def __init__(self, pdf_directory):
-        super().__init__(pdf_directory)
 
     def clean_date_v2(self, date_str, _format="%Y-%m-%d"):
         try:
@@ -285,11 +287,13 @@ class UBABankStatement(BankStatementReport):
             "average_monthly_balance": average_monthly_balance
         }
 
-
-pdf_path = "../pdfs/uba3.pdf"
-
-bank_statement = UBABankStatement(pdf_path)
-
-result = bank_statement.result()
-
-print(result)
+# if __name__ == "__main__":
+#     print("Called")
+#
+#     pdf_path = "../pdfs/uba3.pdf"
+#
+#     bank_statement = UBABankStatement(pdf_path)
+#
+#     result = bank_statement.result()
+#
+#     print(result)

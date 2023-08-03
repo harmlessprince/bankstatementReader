@@ -5,6 +5,11 @@ import re
 
 class ZenithBankStatement(BankStatementReport):
 
+    def __init__(self, pdf_directory):
+        if pdf_directory is None or pdf_directory == '':
+            pdf_directory = "../pdfs/zenith.pdf"
+        super().__init__(pdf_directory)
+
     def predict_salary_income(self, dataframe, table_headers, lower_bound, upper_bound):
         # Filter the DataFrame to get rows with values within the specified range
         filtered_df = dataframe[(dataframe['Deposits'] >= lower_bound) & (dataframe['Deposits'] <= upper_bound)]
@@ -33,13 +38,13 @@ class ZenithBankStatement(BankStatementReport):
         text = self.get_pdf_page_text(reader)
         cleaned_text = self.clean_text(text)
 
-        statement_period_extracted = bank_statement.get_statement_period(cleaned_text)
-        account_name_extracted = bank_statement.get_account_name(cleaned_text)
-        account_number_extracted = bank_statement.get_account_number(cleaned_text)
-        total_withdrawals_extracted = bank_statement.get_total_withdrawal(cleaned_text)
-        total_deposit_extracted = bank_statement.get_total_deposit(cleaned_text)
-        opening_balance_extracted = bank_statement.get_opening_balance(cleaned_text)
-        closing_balance_extracted = bank_statement.get_closing_balance(cleaned_text)
+        statement_period_extracted = self.get_statement_period(cleaned_text)
+        account_name_extracted = self.get_account_name(cleaned_text)
+        account_number_extracted = self.get_account_number(cleaned_text)
+        total_withdrawals_extracted = self.get_total_withdrawal(cleaned_text)
+        total_deposit_extracted = self.get_total_deposit(cleaned_text)
+        opening_balance_extracted = self.get_opening_balance(cleaned_text)
+        closing_balance_extracted = self.get_closing_balance(cleaned_text)
 
         table_headers = self.get_transactions_table_headers(reader)
 
@@ -75,9 +80,6 @@ class ZenithBankStatement(BankStatementReport):
             "closing_balance": closing_balance_extracted,
             "average_monthly_balance": average_monthly_balance
         }
-
-    def __init__(self, pdf_directory):
-        super().__init__(pdf_directory)
 
     def get_account_number(self, text):
         pattern = r'Account\s+(?:No(?:\.|:)?|Number(?:\.|:)?)\s+SA\s+(\d{10,12})'
@@ -299,9 +301,10 @@ class ZenithBankStatement(BankStatementReport):
             'balance': 'Balance'
         }
 
-
-pdf_path = "../pdfs/zenith.pdf"
-
-bank_statement = ZenithBankStatement(pdf_path)
-
-print(bank_statement.result())
+# if __name__ == "__main__":
+#     print("Called")
+#     pdf_path = "../pdfs/zenith.pdf"
+#
+#     bank_statement = ZenithBankStatement(pdf_path)
+#
+#     print(bank_statement.result())
