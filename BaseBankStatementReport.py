@@ -343,10 +343,19 @@ class BankStatementReport:
     def result(self):
         pass
 
-
-    def export_to_excel(self, dataframe ,name, start_date, end_date):
-        file_name = name + '-' + start_date + '-' + end_date + '.xlsx'
-        print(file_name);
+    def export_to_excel(self, dataframe, name, start_date, end_date):
+        try:
+            # Specify the file name for the Excel file
+            file_name = name.replace(' ', '_') + '_From-' + start_date + '_To-' + end_date + '.xlsx'
+            # Specify the directory path where you want to save the Excel file
+            directory_path = 'exports/'
+            # Combine the directory path and file name to create the full file path
+            full_file_path = directory_path + file_name
+            dataframe.to_excel(full_file_path, index=False)
+            return full_file_path
+        except Exception as e:
+            print(e)
+            return False
 
     def get_average_monthly_balance(self, dataframe):
         dataframe['Transaction date'] = pd.to_datetime(dataframe['Transaction Date'])

@@ -195,18 +195,18 @@ class FidelityBankStatement(BankStatementReport):
         # print(trans_rows)
         # exit()
         formatted_df = self.format_dataframe_columns(table_headers, table_rows=trans_rows)
-
-        total_withdrawals_extracted = self.get_total_withdrawal(formatted_df)
-        total_deposit_extracted = self.get_total_deposit(formatted_df)
+        formatted_df_copy = formatted_df.copy()
+        total_withdrawals_extracted = self.get_total_withdrawal(formatted_df_copy)
+        total_deposit_extracted = self.get_total_deposit(formatted_df_copy)
         print("--- Predicted Salary List ----")
-        salary_df = self.predict_salary_income(formatted_df, table_headers, 50000, 500000)
+        salary_df = self.predict_salary_income(formatted_df_copy, table_headers, 50000, 500000)
 
-        average_monthly_balance = self.get_average_monthly_balance(formatted_df)
+        average_monthly_balance = self.get_average_monthly_balance(formatted_df_copy)
         self.export_to_excel(
             dataframe=formatted_df,
             name=account_name_extracted,
             start_date=statement_period_extracted.get('from_date'),
-            end_date=statement_period_extracted.get('end_date')
+            end_date=statement_period_extracted.get('to_date')
         )
         return {
             'period': statement_period_extracted,
